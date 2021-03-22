@@ -9,7 +9,36 @@ public class Factorial {
      */
 
     public static void main(String[] args) {
+        System.out.println( getFactRecursion(5));
+        System.out.println(getFactRecursion(10));
+
 
 
     }
+
+    public static long getFactorial(int x){
+        long  fact = 1;
+        if( x <= 0){
+            System.out.println("Invalid entry");
+        }else{
+            for( int i = 1; i <=x; i++ ){
+                fact = fact * i;
+                System.out.println( "factorial number " + x  + fact);
+            }
+
+
+        }
+        return fact;
+
+    }
+    public static long getFactRecursion(int number) {
+
+        if (number <= 0) {
+            return 1;
+        } else {
+            return (number * getFactRecursion((number - 1)));
+        }
+    }
 }
+
+

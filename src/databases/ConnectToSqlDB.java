@@ -12,6 +12,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.Queue;
 
 import parser.Student;
 
@@ -24,7 +25,7 @@ public class ConnectToSqlDB {
 
     public static Properties loadProperties() throws IOException {
         Properties prop = new Properties();
-        InputStream ism = new FileInputStream("src/secret.properties");
+        InputStream ism = new FileInputStream("properties/secret.properties");
         prop.load(ism);
         ism.close();
         return prop;
@@ -42,7 +43,7 @@ public class ConnectToSqlDB {
         return connect;
     }
 
-    public static List<User> readUserProfileFromSqlTable(){
+    public static List<User> readUserProfileFromSqlTable() {
         List<User> list = new ArrayList<>();
         User user = null;
         try {
@@ -211,4 +212,42 @@ public class ConnectToSqlDB {
             e.printStackTrace();
         }
     }
-}
+
+    public void insertDataFromIntegerArrayListToSqlTable(List<Integer> list, String tableName, String columnName) {
+        try {
+            connectToSqlDatabase();
+            ps = connect.prepareStatement("DROP TABLE IF EXISTS `" + tableName + "`;");
+            ps.executeUpdate();
+            ps = connect.prepareStatement("CREATE TABLE `" + tableName + "` (`ID` int(11) NOT NULL AUTO_INCREMENT,`" + columnName + "` bigint(20) DEFAULT NULL, PRIMARY KEY (`ID`) );");
+            ps.executeUpdate();
+            for (Integer i : list) {
+                ps = connect.prepareStatement("INSERT INTO " + tableName + " ( " + columnName + " ) VALUES(?)");
+                ps.setObject(1, i);
+                ps.executeUpdate();
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void insertDataFromIntegerArrayListToSqlTable(String q, String integers) throws SQLException, IOException, ClassNotFoundException {
+        connectToSqlDatabase();
+        ps = connect.prepareStatement("DROP TABLE IF EXISTS `" + q + "`;");
+        ps.executeUpdate();
+        ps = connect.prepareStatement("CREATE TABLE `" + q + "` (`ID` int(11) NOT NULL AUTO_INCREMENT,`" + integers + "` bigint(20) DEFAULT NULL, PRIMARY KEY (`ID`) );");
+        ps.executeUpdate();
+
+            ps = connect.prepareStatement("INSERT INTO " + q + " ( " + integers + " ) VALUES(?)");
+            ps.setObject(1, 0);
+            ps.executeUpdate();
+        }
+
+    }
+
+
+
