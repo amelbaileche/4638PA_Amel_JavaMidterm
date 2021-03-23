@@ -247,7 +247,10 @@ public class ConnectToSqlDB {
             ps.executeUpdate();
         }
 
+    public void insertDataFromStringToSqlTable(String yearSeasons, String seasons) {
+
     }
+}
 
 
 

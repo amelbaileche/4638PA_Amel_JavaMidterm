@@ -19,6 +19,7 @@ public class UseMap {
 
         HashMap<String, Integer> hash = new HashMap<String, Integer>();
         ConnectToSqlDB connect = new ConnectToSqlDB();
+        connect.insertDataFromStringToSqlTable("yearSeasons","Seasons");
 
 
 

@@ -5,6 +5,10 @@ import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.nio.file.Files;
 
 public class CnnAPI {
@@ -46,12 +50,35 @@ public class CnnAPI {
      */
 
     public static void main(String[] args) throws IOException, JSONException {
-        String apiKey = "";
-        String URL = "https://newsapi.org/v2/top-headlines?sources=cnn&apiKey=" + apiKey;
 
-        JSONObject rootObject = new JSONObject(new String(Files.readAllBytes(new File("src/json/parser/data.json").toPath())));
 
         // Continue implementing here..
-    }
 
-}
+
+
+                System.out.println("### NewsScript! v1.0: Get Daily News ###");
+                String API_KEY = "<cf9f717de2944a88a9cc4cbb1d6df7eb>";
+
+                var client = HttpClient.newHttpClient();
+                var httpRequest = HttpRequest.newBuilder()
+                        .uri(URI.create(String.format("https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=%s", API_KEY)))
+                        .GET()
+                        .build();
+
+                try{
+                    var response = client.send(httpRequest, HttpResponse.BodyHandlers.ofString());
+                    System.out.println(response.body());
+
+
+
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+
+
+            }
+
+        }
+
+
+

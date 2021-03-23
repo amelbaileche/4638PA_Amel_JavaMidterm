@@ -61,5 +61,14 @@ public class CsvReader {
                 System.out.println(student.getFirstName() + " " + student.getLastName() + " " + student.getNumberOfExercisesSolved());
             }
         }
+        //The Score of the class would be the average score of each student divided but the number of students
+        int numberOfStudent = roster.size();
+        int answers = 0;
+        double result=0;
+        for (Trainee students: roster) {
+            answers+=students.getNumberOfExercisesSolved();
+        }
+        result=answers/numberOfStudent;
+        System.out.println("The score of the class is "+result);
     }
 }

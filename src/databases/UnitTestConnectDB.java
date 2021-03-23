@@ -1,10 +1,13 @@
 package databases;
 
+import org.testng.annotations.Test;
+
 public class UnitTestConnectDB {
 
-    public static void main(String[] args) {
-        ConnectToSqlDB connectToSqlDB = new ConnectToSqlDB();
+    ConnectToSqlDB connectToSqlDB = new ConnectToSqlDB();
 
+    @Test
+    public void testDBConnection() throws Exception {
 
 
     }
